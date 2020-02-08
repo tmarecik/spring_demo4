@@ -9,16 +9,21 @@
 </head>
 
 <body>
-<form action="#" method="post" th:action="@{/addUser}" th:object="${user}"  >
 
+
+
+<form action="#" method="post" th:action="@{/addUser}" th:object="${user}"  >
     <!--    //znaczek "*" by me - -->
 
+    <p class="alert alert-error" th:if="${#fields.hasErrors('imie')}" >MUSISZ PODAC IMIE</p>
     <label for="imie">Imie:  </label>
     <input type="text" th:field="*{imie}" id="imie">
 
+    <p class="alert alert-error" th:if="${#fields.hasErrors('nazwisko')}">MUSISZ PODAC NAZWOSKO</p>
     <label for="nazwisko">Nazwisko:  </label>
     <input type="text" th:field="*{nazwisko}" id="nazwisko">
 
+    <p class="alert alert-error" th:if="${#fields.hasErrors('wiek')}">WIEK NIE MOZE BYC MNIEJSZY OD 0</p>
     <label for="wiek">Wiek:  </label>
     <input type="text" th:field="*{wiek}" id="wiek">
 

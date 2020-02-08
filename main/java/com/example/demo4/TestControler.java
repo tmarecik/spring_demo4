@@ -5,16 +5,21 @@ import com.example.demo4.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class TestControler {
 
+    public class NotFoundException extends RuntimeException{};
 
     @Autowired                  //wstrzykujemy service
     UserService userService;
@@ -40,11 +45,47 @@ public class TestControler {
         return "add-user";
     }
 
-    @PostMapping("/addUser")
-    public String createUser(@ModelAttribute User user, Model model){
-        userService.createUser(user.getImie(), user.getNazwisko(), user.getWiek());
-        return "redirect:/listUsers";
+    @GetMapping("/getUser/{id}")
+    public String getUser(@PathVariable int id, Model model){
+        User user = userService.getUser(id);
+        if(user == null){
+            throw new NotFoundException();
+        } else {
+            model.addAttribute("user", user);
+            return "user-details";
+        }
     }
+
+
+    @PostMapping("/addUser")
+    public String createUser(@ModelAttribute User user, BindingResult bindingResult, Model model) {
+        validate(user, bindingResult);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", user);
+            return "add-user";
+        } else {
+            userService.createUser(user.getImie(), user.getNazwisko(), user.getWiek());
+            return "redirect:/listUsers";
+        }
+    }
+
+    public void validate(User user, BindingResult bindingResult){
+        if(user.getImie() == null || user.getImie().isEmpty()){
+            bindingResult.addError(new ObjectError("imie", "Musisz podać imie"));
+        }
+
+        if(user.getNazwisko() == null || user.getNazwisko().isEmpty()){
+            bindingResult.addError(new ObjectError("nazwisko", "Musisz podac nazwisko"));
+        }
+
+        if(user.getWiek() < 0){
+            bindingResult.addError(new ObjectError("wiek", " wiek nie moze być < 0"));
+        }
+
+
+    }
+
+
 
 //        @GetMapping("/test")
 //    public String test(Model model) {     //tutaj dodaliśmy model który jest przetwarzany przez "thymeleaf"
