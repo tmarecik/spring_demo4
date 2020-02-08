@@ -1,0 +1,52 @@
+<html xmlns:th="http://wwww.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!--    bootstrap dodatrcza gotowych styli!!-->
+    <!--    idea bootstrapa każdy element mozna podzielić na 12 jednostek   -->
+</head>
+
+
+<body>
+<div class="container">
+    <button>CZESC</button>
+    <div class="row">
+        <table class="table">
+            <tr>
+                <td>id :</td>
+                <td>Imie :</td>
+                <td>Nazwisko :</td>
+                <td>wiek :</td>
+            </tr>
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--                <td th:text="${user.id}"></td>-->
+<!--                <td th:text="${user.imie}"></td>-->
+<!--                <td th:text="${user.nazwisko}"></td>-->
+<!--                <td th:text="${user.wiek}"></td>-->
+<!--            </tr>-->
+
+<!--            </tbody>-->
+
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.imie}"></td>
+                <td th:text="${user.nazwisko}"></td>
+                <td th:text="${user.wiek}"></td>
+            </tr>
+
+            </tbody>
+
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+
+
+</body>
+</html>
