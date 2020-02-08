@@ -7,10 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 import java.util.ArrayList;
@@ -23,7 +20,6 @@ public class TestControler {
 
     @Autowired                  //wstrzykujemy service
     UserService userService;
-
 
     @GetMapping("/listUsers")
     public String test(Model model) {
@@ -46,8 +42,11 @@ public class TestControler {
     }
 
     @GetMapping("/getUser/{id}")
-    public String getUser(@PathVariable int id, Model model){
-        User user = userService.getUser(id);
+    public String getUser(@PathVariable String id, Model model){
+
+        int id1 = Integer.parseInt(id);
+
+        User user = userService.getUser(id1);
         if(user == null){
             throw new NotFoundException();
         } else {
@@ -55,7 +54,6 @@ public class TestControler {
             return "user-details";
         }
     }
-
 
     @PostMapping("/addUser")
     public String createUser(@ModelAttribute User user, BindingResult bindingResult, Model model) {
@@ -68,6 +66,18 @@ public class TestControler {
             return "redirect:/listUsers";
         }
     }
+
+
+    @ExceptionHandler(NotFoundException.class)            //obsługa wyjątków
+    public String notFound(){
+        return "404";
+    }
+
+    @ExceptionHandler(NumberFormatException.class)            //obsługa wyjątków
+    public String wrongFormatID(){
+        return "numb-format-exep";
+    }
+
 
     public void validate(User user, BindingResult bindingResult){
         if(user.getImie() == null || user.getImie().isEmpty()){

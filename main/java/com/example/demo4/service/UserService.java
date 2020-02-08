@@ -9,15 +9,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-//@Component
-@Service  //to samo co component
+@Service
 public class UserService {
 
     private Map<Integer, User> userMap = new HashMap<>();
 
-    public User createUser(String imie, String nazwisko, int wiek){
+    public User createUser(String imie, String nazwisko, int termin){
         int id = new Random().nextInt();
-        User user = new User(id, imie, nazwisko, wiek);
+        User user = new User(id, imie, nazwisko, termin);
         userMap.put(id, user);
         return user;
     }
