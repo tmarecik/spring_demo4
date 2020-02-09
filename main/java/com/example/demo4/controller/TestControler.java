@@ -1,4 +1,4 @@
-package com.example.demo4;
+package com.example.demo4.controller;
 
 import com.example.demo4.model.User;
 import com.example.demo4.service.UserService;
@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 public class TestControler {
 
-    public class NotFoundException extends RuntimeException{};
+    public static class NotFoundException extends RuntimeException{};
 
     @Autowired                  //wstrzykujemy service
     UserService userService;

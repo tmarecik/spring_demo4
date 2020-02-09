@@ -10,7 +10,7 @@
 <div class="container">
 
     <div class="row">
-        <a class="btn" href="/skierowanie/addSkierowanie">DODAJ SKIEROWANIE</a>
+        <a class="btn" href="/skierowanie/dodaj">DODAJ SKIEROWANIE</a>
     </div>
 
     <div class="row">
@@ -19,11 +19,11 @@
                 <td>id :</td>
                 <td>lekarz :</td>
                 <td>pacjent :</td>
-                <td>data :</td>
+                <td>termin :</td>
             </tr>
             <tbody>
             <tr th:each="skl : ${skls}">
-                <td th:text="${skl.id}"></td>
+                <td> <a th:attr="href= '/skierowanie/' + ${skl.id}" th:text="${skl.id}"></a></td>
                 <td th:text="${skl.lekarz}"></td>
                 <td th:text="${skl.pacjent}"></td>
                 <td th:text="${skl.termin}"></td>

@@ -1,38 +1,29 @@
-package com.example.demo4.model;
+package com.example.demo4.DTO;
+
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
-@Entity                                   //tym informyjemy baze danych że to jest nasza encja
-@Table(name = "lista_skierowan")
-public class SkierowanieDoLekarza {
+public class SkierowanieDoLekarzaDTO {
 
-    @Id          //nasz primary key w bazie
-    @GeneratedValue
-    @Column
+
     int id;
 
-    @Column(nullable = false)
+    @NotEmpty
     String lekarz;
 
-    @Column(nullable = false)
+    @NotEmpty
     String pacjent;
 
+    @FutureOrPresent
+    @DateTimeFormat(pattern="yyyy-MM-dd'T'hh:mm")
     Date termin;
-
-    public SkierowanieDoLekarza(int id, String lekarz, String pacjent, Date termin) {
-        this.id = id;
-        this.lekarz = lekarz;
-        this.pacjent = pacjent;
-        this.termin = termin;
-    }
-
-    public SkierowanieDoLekarza() {
-    }
 
     public int getId() {
         return id;
@@ -65,4 +56,5 @@ public class SkierowanieDoLekarza {
     public void setTermin(Date termin) {
         this.termin = termin;
     }
+
 }

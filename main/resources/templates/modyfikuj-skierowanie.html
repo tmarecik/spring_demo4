@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html xmlns:th="http://wwww.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -9,24 +8,30 @@
 
 <body>
 
-<form action="#" method="post" th:action="@{/skierowanie/dodaj}" th:object="${skl}">
+<form action="#" method="post" th:action="@{/skierowanie/modyfikuj}" th:object="${skl}"  >
     <!--    //znaczek "*" by me - -->
 
-    <p class="alert alert-danger" th:if="${#fields.hasErrors('lekarz')}"  th:errors="*{lekarz}">MUSISZ WPROWADZIC LEKARZA</p>
+    <div class="form-group">
+        <label for="id">ID: </label>
+        <input class="form-control" type="text" th:field="*{id}" id="id" readonly/>
+    </div>
+
+    <p class="alert alert-danger" th:if="${#fields.hasErrors('lekarz')}" >MUSISZ WPROWADZIC LEKARZA</p>
     <label for="lekarz">Lekarz:  </label>
     <input class="form-control" type="text" th:field="*{lekarz}" id="lekarz">
 
-    <p class="alert alert-danger" th:if="${#fields.hasErrors('pacjent')}" th:errors="*{pacjent}">MUSISZ PODAC PACJENTA</p>
+
+    <p class="alert alert-danger" th:if="${#fields.hasErrors('pacjent')}">MUSISZ PODAC PACJENTA</p>
     <label for="pacjent">Pacjent: </label>
     <input class="form-control" type="text" th:field="*{pacjent}" id="pacjent">
 
-    <p class="alert alert-danger" th:if="${#fields.hasErrors('termin')}"  th:errors="*{termin}">WMUSISZ PODAC TERMIN</p>
+    <p class="alert alert-danger" th:if="${#fields.hasErrors('termin')}">WMUSISZ PODAC TERMIN</p>
     <label for="termin">Termin:  </label>
     <input class="form-control" type="datetime-local" th:field="*{termin}" id="termin">
 
     <input type="submit">
 <div>
-    <a class="btn" href="/skierowanie/list">Anuluj</a>
+    <a class="btn" th:attr="href = '/skierowanie/' + ${skl.id}">Anuluj</a>
 </div>
 
 </form>

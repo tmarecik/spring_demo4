@@ -9,9 +9,21 @@
 <body>
 
     <div th:text="${skl.id}"></div>
-    <div th:text="${skl.imie}"></div>
-    <div th:text="${skl.nazwisko}"></div>
+    <div th:text="${skl.lekarz}"></div>
+    <div th:text="${skl.pacjent}"></div>
     <div th:text="${skl.termin}"></div>
+
+<div>
+    <a class="btn" href="/skierowanie/list">BACK</a>
+</div>
+
+    <div>
+        <a class="btn" th:attr="href='/skierowanie/usun/' + ${skl.id}">USUN</a>
+    </div>
+
+    <div>
+        <a class="btn" th:attr="href='/skierowanie/modyfikuj/' + ${skl.id}">MODYFIKUJ</a>
+    </div>
 
 </body>
 </html>
